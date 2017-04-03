@@ -32,6 +32,11 @@ public class cannonAnimator implements Animator
     }
 
 
+    //create different
+
+
+
+
     /**
      * The background color: a light blue.
      *
@@ -66,6 +71,9 @@ public class cannonAnimator implements Animator
         else {
             count++;
         }
+
+        cannonBalls ballTest = new cannonBalls(100,100,20);
+        ballTest.drawMe(g);
 
 
 
