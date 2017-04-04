@@ -5,7 +5,8 @@ import android.support.annotation.MainThread;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import java.util.Random;
+import java.lang.annotation.Target;
+import java.util.ArrayList;
 
 /**
  * Created by devinajimine on 4/2/17.
@@ -30,9 +31,35 @@ public class cannonAnimator implements Animator
     private int velocity = 150;
     private double angle = 45*3.14/180;
     private final double GRAVITY = 9.8;
-    private target targetTest;
-    Random myRand = new Random();
-    private int daColor;
+    private ArrayList<target> tars;
+    private ArrayList<target> balls;
+
+    public static final int SCREEN_WIDTH = 2048;
+
+    public cannonAnimator()
+    {
+        tars = new ArrayList<>();
+        balls = new ArrayList<>();
+        intialTars();
+        intialBalls();
+    }
+
+    private void intialBalls()
+    {
+        balls.add(targetTest);
+        balls.add(targetTest2);
+    }
+
+    public void intialTars()
+    {
+        target targetTest = new target("", Color.RED, 1800, 500, 100);
+        target targetTest2 = new target("", Color.RED, 800, 900, 75);
+
+        tars.add(targetTest);
+        tars.add(targetTest2);
+
+
+    }
 
 
     /**
@@ -81,33 +108,43 @@ public class cannonAnimator implements Animator
         // we are in "backwards mode".
 
 
-        daColor = Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
-                myRand.nextInt(256));
-        if(targetTest.containsPoint(posX +175,posY+1250))
+
+
+        for(target t : tars)
         {
-            daColor = Color.GREEN;
+            t.drawMe(g);
+
         }
-        targetTest = new target("", daColor, 1000, 500, 100);
-        targetTest.drawMe(g);
-        target targetTest2 = new target("", Color.RED, 800, 900, 75);
-        targetTest2.drawMe(g);
-
-
-
 
         if(fire)
         {
-            count++;
-
             posX = (int)(velocity*Math.cos(angle)*count);
             posY = (int)(-((velocity*Math.sin(angle)*count) - (.5*GRAVITY*count*count)));
             // Draw the ball in the correct position.
             Paint redPaint = new Paint();
             redPaint.setColor(Color.RED);
-            g.drawCircle(posX +175, posY+1250, 60, redPaint);
-            Log.i("angle value:", angle + "");
+            g.drawCircle(posX +175, posY+1200, 60, redPaint);
 
+            Log.i("angle value:", angle + "");
+            count++;
+
+            if((posX +175)> SCREEN_WIDTH)
+            {
+
+            }
+            else
+            {
+                for (target z : tars) {
+                    if (z.containsPoint(posX + 175, posY + 1200)) {
+                        z.setHit();
+                    } else {
+
+                    }
+
+                }
+            }
         }
+
 
 
 
