@@ -29,6 +29,7 @@ public class cannonBalls
         Paint black = new Paint();
         black.setColor(Color.BLACK);
         canvas.drawCircle(x, y, 20,black);  //main circle
+
     }
 
 

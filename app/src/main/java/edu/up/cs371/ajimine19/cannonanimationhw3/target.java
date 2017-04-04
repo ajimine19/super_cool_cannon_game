@@ -15,7 +15,8 @@ public class target extends customElement
     private int x;
     private int y;
     private int radius;
-    Random myRand = new Random();
+    private int daColor;
+    private boolean hit;
 
     //takes in the x,y,radius and if it is hit than highlight
     public target(String name, int color, int x, int y, int radius)
@@ -24,16 +25,26 @@ public class target extends customElement
             this.x = x;
             this.y = y;
             this.radius = radius;
+            this.daColor = color;
     }
 
 
     public void drawMe(Canvas canvas) {
         //paints targets as random
-        Paint randColor = new Paint();
-        randColor.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
+        /*
+        Paint daColor = new Paint();
+        daColor.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
                 myRand.nextInt(256)));
 
-        canvas.drawCircle(x, y, radius,randColor );  //main circle
+        if(hit)
+        {
+            daColor.setColor(Color.MAGENTA);
+        }
+        */
+
+        Paint myColor = new Paint();
+        myColor.setColor(daColor);
+        canvas.drawCircle(x, y, radius,myColor );  //main circle
 
 
     }
@@ -62,5 +73,9 @@ public class target extends customElement
     }
 
 
+    public void setHit()
+    {
+        hit = true;
+    }
 
 }

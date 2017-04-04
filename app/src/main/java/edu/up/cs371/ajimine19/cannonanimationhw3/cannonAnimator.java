@@ -1,7 +1,11 @@
 package edu.up.cs371.ajimine19.cannonanimationhw3;
 
 import android.graphics.*;
+import android.support.annotation.MainThread;
+import android.util.Log;
 import android.view.MotionEvent;
+
+import java.util.Random;
 
 /**
  * Created by devinajimine on 4/2/17.
@@ -20,6 +24,16 @@ public class cannonAnimator implements Animator
     // instance variables
     private int count = 0; // counts the number of logical clock ticks
     private boolean goBackwards = false; // whether clock is ticking backwards
+    private boolean fire = false;
+    private int posX = 0;
+    private int posY = 0;
+    private int velocity = 150;
+    private double angle = 45*3.14/180;
+    private final double GRAVITY = 9.8;
+    private target targetTest;
+    Random myRand = new Random();
+    private int daColor;
+
 
     /**
      * Interval between animation frames: .03 seconds (i.e., about 33 times
@@ -65,16 +79,48 @@ public class cannonAnimator implements Animator
     public void tick(Canvas g) {
         // bump our count either up or down by one, depending on whether
         // we are in "backwards mode".
-        if (goBackwards) {
-            count--;
+
+
+        daColor = Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
+                myRand.nextInt(256));
+        if(targetTest.containsPoint(posX +175,posY+1250))
+        {
+            daColor = Color.GREEN;
         }
-        else {
+        targetTest = new target("", daColor, 1000, 500, 100);
+        targetTest.drawMe(g);
+        target targetTest2 = new target("", Color.RED, 800, 900, 75);
+        targetTest2.drawMe(g);
+
+
+
+
+        if(fire)
+        {
             count++;
+
+            posX = (int)(velocity*Math.cos(angle)*count);
+            posY = (int)(-((velocity*Math.sin(angle)*count) - (.5*GRAVITY*count*count)));
+            // Draw the ball in the correct position.
+            Paint redPaint = new Paint();
+            redPaint.setColor(Color.RED);
+            g.drawCircle(posX +175, posY+1250, 60, redPaint);
+            Log.i("angle value:", angle + "");
+
         }
 
-        cannonBalls ballTest = new cannonBalls(100,100,20);
-        ballTest.drawMe(g);
 
+
+
+        Paint colorB = new Paint();
+        colorB.setColor(Color.BLACK);
+        cannon canonTest = new cannon(0,0);
+
+
+        g.save();
+        g.rotate((float)(-(angle*180/3.14)+90),100,1200);
+        g.drawRect(0,1150,250,1500, colorB);
+        g.restore();
 
 
         // Determine the pixel position of our ball.  Multiplying by 15
@@ -82,13 +128,9 @@ public class cannonAnimator implements Animator
         // (with the appropriate correction if the value was negative)
         // has the effect of "wrapping around" when we get to either end
         // (since our canvas size is 600 in each dimension).
-        int num = (count*15)%600;
-        if (num < 0) num += 600;
 
-        // Draw the ball in the correct position.
-        Paint redPaint = new Paint();
-        redPaint.setColor(Color.RED);
-        g.drawCircle(num, num, 60, redPaint);
+
+
 
     }
 
@@ -121,4 +163,15 @@ public class cannonAnimator implements Animator
         }
     }
 
+    public void fire()
+    {
+        fire = true;
+        count =0;
+    }
+
+
+    public void setAngle(int angle) {
+        this.angle = angle * 3.14 / 180;
+    }
 }
+
