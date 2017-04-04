@@ -17,7 +17,7 @@ public class cannonBalls
 
 
     /** the circle's dimensions must be defined at construction */
-    public cannonBalls( int x, int y, int radius)
+    public cannonBalls( int x, int y, int radius, int color)
     {
         this.x = x;
         this.y = y;

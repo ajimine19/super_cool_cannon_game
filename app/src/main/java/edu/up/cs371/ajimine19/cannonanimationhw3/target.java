@@ -8,15 +8,19 @@ import java.util.Random;
 
 /**
  * Created by devinajimine on 4/2/17.
+ *
+ *Summary: This target class draws the targets and extends customElement in order to get
+ * check if the ball hits the target
  */
 
 public class target extends customElement
 {
+    //instance variables
     private int x;
     private int y;
     private int radius;
     Random myRand = new Random();
-    private boolean hit = false;
+    private boolean hit;
 
     //takes in the x,y,radius and if it is hit than highlight
     public target(String name, int color, int x, int y, int radius)
@@ -44,6 +48,7 @@ public class target extends customElement
         }
 
         canvas.drawCircle(x, y, radius,daColor );  //main circle
+
 
 
     }
@@ -76,7 +81,6 @@ public class target extends customElement
     {
 
             hit = true;
-
 
     }
 

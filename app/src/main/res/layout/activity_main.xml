@@ -14,15 +14,15 @@
 
         <TextView
             android:text="Angle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="163dp"
             android:id="@+id/angleText"
-            android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="?attr/colorAccent"
+            android:layout_height="match_parent"
+            android:textSize="30sp" />
 
         <SeekBar
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:id="@+id/angleSeek"
             android:layout_weight="1"
             android:max="90"
@@ -31,10 +31,9 @@
 
         <Button
             android:text="FIRE!!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="322dp"
+            android:layout_height="match_parent"
             android:id="@+id/fireButton"
-            android:layout_weight="1"
             android:textSize="36sp"
             android:textColor="@android:color/holo_red_light" />
 

@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 /**
  * Created by devinajimine on 4/2/17.
+ * Summary: Class that creates the animations. Below draws the animations and constantly
+ * continues to save and restore the canvas.
+ *
  */
 
 /**
@@ -32,35 +35,23 @@ public class cannonAnimator implements Animator
     private double angle = 45*3.14/180;
     private final double GRAVITY = 9.8;
     private ArrayList<target> tars;
-    private ArrayList<target> balls;
 
-    public static final int SCREEN_WIDTH = 2048;
-
+    //constructor to call on intialized methods
     public cannonAnimator()
     {
         tars = new ArrayList<>();
-        balls = new ArrayList<>();
         intialTars();
-        intialBalls();
     }
 
-    private void intialBalls()
-    {
-        balls.add(targetTest);
-        balls.add(targetTest2);
-    }
-
+    //intialize the targets
     public void intialTars()
     {
-        target targetTest = new target("", Color.RED, 1800, 500, 100);
+        target targetTest = new target("", Color.RED, 100, 500, 100);
         target targetTest2 = new target("", Color.RED, 800, 900, 75);
 
         tars.add(targetTest);
         tars.add(targetTest2);
-
-
     }
-
 
     /**
      * Interval between animation frames: .03 seconds (i.e., about 33 times
@@ -71,12 +62,6 @@ public class cannonAnimator implements Animator
     public int interval() {
         return 30;
     }
-
-
-    //create different
-
-
-
 
     /**
      * The background color: a light blue.
@@ -104,69 +89,71 @@ public class cannonAnimator implements Animator
      * @param g the graphics object on which to draw
      */
     public void tick(Canvas g) {
-        // bump our count either up or down by one, depending on whether
-        // we are in "backwards mode".
 
-
-
-
+        //draws all the targets out
         for(target t : tars)
         {
             t.drawMe(g);
-
         }
 
         if(fire)
         {
+            //calculates for gravity and sets the positions
             posX = (int)(velocity*Math.cos(angle)*count);
             posY = (int)(-((velocity*Math.sin(angle)*count) - (.5*GRAVITY*count*count)));
+
             // Draw the ball in the correct position.
+            //TODO Paint
             Paint redPaint = new Paint();
             redPaint.setColor(Color.RED);
-            g.drawCircle(posX +175, posY+1200, 60, redPaint);
 
-            Log.i("angle value:", angle + "");
+
+            g.drawCircle(posX +125, posY+1125, 60, redPaint);
+            //Log.i("angle value:", angle + "");
+
+            //iterate count to add multiple ticks
             count++;
 
-            if((posX +175)> SCREEN_WIDTH)
+            //Checks to see if the balls hits the the target
+            //if the target is hit the setHit method will return a true so the target change color
+
+        }
+
+        for (target z : tars) {
+            if (z.containsPoint(posX + 125, posY + 1100))
             {
+                z.setHit();
 
             }
             else
             {
-                for (target z : tars) {
-                    if (z.containsPoint(posX + 175, posY + 1200)) {
-                        z.setHit();
-                    } else {
 
-                    }
-
-                }
             }
         }
 
+        //TODO working on custom Canon
+        //cannon canonTest = new cannon(100,100);
 
-
-
-
+        //TODO Paint
         Paint colorB = new Paint();
         colorB.setColor(Color.BLACK);
-        cannon canonTest = new cannon(0,0);
 
-
+        //rotates the canvas
         g.save();
-        g.rotate((float)(-(angle*180/3.14)+90),100,1200);
-        g.drawRect(0,1150,250,1500, colorB);
+        g.rotate((float)(-(angle*180/3.14)+90),100,1150);
+        g.drawRect(0,1000,200,1250, colorB);
         g.restore();
 
+        //TODO PAint
+        Paint baseColor = new Paint();
+        baseColor.setColor(Color.RED);
 
-        // Determine the pixel position of our ball.  Multiplying by 15
-        // has the effect of moving 15 pixel per frame.  Modding by 600
-        // (with the appropriate correction if the value was negative)
-        // has the effect of "wrapping around" when we get to either end
-        // (since our canvas size is 600 in each dimension).
-
-
+        //draws base
+        Path triangle = new Path();
+        triangle.moveTo(0,1000);
+        triangle.lineTo(300,1350);
+        triangle.lineTo(0,1350);
+        g.drawPath(triangle,baseColor);
 
 
     }
@@ -200,13 +187,14 @@ public class cannonAnimator implements Animator
         }
     }
 
+    //when the button is pressed count ticks changes
     public void fire()
     {
         fire = true;
         count =0;
     }
 
-
+    //method to change into radians
     public void setAngle(int angle) {
         this.angle = angle * 3.14 / 180;
     }

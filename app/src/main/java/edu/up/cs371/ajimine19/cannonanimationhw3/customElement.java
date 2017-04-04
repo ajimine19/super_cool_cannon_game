@@ -8,6 +8,7 @@ import java.util.Random;
 
 /**
  * Created by devinajimine on 4/2/17.
+ * Using the class so custom circle can extend from it
  */
 
 public abstract class customElement

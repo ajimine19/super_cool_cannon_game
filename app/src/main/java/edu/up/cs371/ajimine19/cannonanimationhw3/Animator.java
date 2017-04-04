@@ -13,6 +13,7 @@ import android.view.MotionEvent;
  */
 /**
  * Created by devinajimine on 4/2/17.
+ * Animator is the main source of the animation
  */
 
 public interface Animator {

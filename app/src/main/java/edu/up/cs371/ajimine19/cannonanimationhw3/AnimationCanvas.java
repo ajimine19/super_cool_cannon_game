@@ -22,6 +22,7 @@ import android.view.View.OnTouchListener;
 
 /**
  * Created by devinajimine on 4/2/17.
+ * Summary: this class is the surface view this cannon is running on
  */
 
 public class AnimationCanvas extends SurfaceView implements OnTouchListener

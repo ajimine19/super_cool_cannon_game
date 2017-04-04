@@ -4,6 +4,9 @@ import android.graphics.Canvas;
 
 /**
  * Created by devinajimine on 4/2/17.
+ *
+ * Using this class to implement the methods inside
+ * TODO reevaluate way of tracking if hit
  */
 
 public class customCircle extends customElement
