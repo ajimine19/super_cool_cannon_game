@@ -31,10 +31,10 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
 {
     //instance variables
     private TextView degrees;
-    private TextView velocity;
+    private TextView gravity;
 
     private SeekBar angleSeeker;
-    private SeekBar velocitySeek;
+    private SeekBar gravitySeek;
 
     private Button fireButton;
     private Button resetButton;
@@ -54,7 +54,7 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         mainLayout.addView(myCanvas);
 
         degrees = (TextView)findViewById(R.id.angleText);
-        velocity = (TextView)findViewById(R.id.velocityText);
+        gravity = (TextView)findViewById(R.id.gravityText);
 
         //fire button
         fireButton = (Button) findViewById(R.id.fireButton);
@@ -70,7 +70,7 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         angleSeeker.setOnSeekBarChangeListener(this);
 
         //velocty seek bar
-        //velocitySeek = (SeekBar) findViewById(R.id.velocitySeekBar);
+        //velocitySeek = (SeekBar) findViewById(R.id.gravitySeekBar);
         //velocitySeek.setOnSeekBarChangeListener(this);
     }
 
@@ -91,7 +91,7 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
 
 
         //TODO implement velocity seek bar
-        //doAnimat.setVelocity(seekBar.getProgress());
+        //doAnimat.setGravity(seekBar.getProgress());
         //velocity.setText(""+seekBar.getProgress());
     }
     @Override

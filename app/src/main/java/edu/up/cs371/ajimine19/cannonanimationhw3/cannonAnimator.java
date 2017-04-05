@@ -37,7 +37,7 @@ public class cannonAnimator implements Animator
     private int posY = 0;
     private int velocity = 150;
     private double angle = 45*3.14/180;
-    private final double GRAVITY = 9.8;
+    private double GRAVITY = 9.8;
     private ArrayList<target> tars;
     private target targetTest, targetTest2,targetTest3, targetTest4 ;
     Random randomExp = new Random();
@@ -266,9 +266,9 @@ public class cannonAnimator implements Animator
         this.angle = angle * 3.14 / 180;
     }
 
-    public void setVelocity(int velocity)
+    public void setGravity(int gravity)
     {
-        this.velocity = velocity;
+        this.GRAVITY = gravity;
     }
 }
 
