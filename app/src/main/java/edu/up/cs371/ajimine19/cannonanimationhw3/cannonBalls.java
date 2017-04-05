@@ -7,6 +7,7 @@ import android.graphics.Paint;
 
 /**
  * Created by devinajimine on 4/2/17.
+ * If I decide to make a custom cannonBall class
  */
 
 public class cannonBalls
@@ -14,7 +15,6 @@ public class cannonBalls
     private int x;
     private int y;
     private int radius;
-
 
     /** the circle's dimensions must be defined at construction */
     public cannonBalls( int x, int y, int radius, int color)

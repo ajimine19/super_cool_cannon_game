@@ -19,38 +19,33 @@ public class target extends customElement
     private int x;
     private int y;
     private int radius;
+    private int color;
     Random myRand = new Random();
-    private boolean hit;
+    private boolean hit = false;
 
     //takes in the x,y,radius and if it is hit than highlight
     public target(String name, int color, int x, int y, int radius)
     {
             super(name, color);
+            this.color = color;
             this.x = x;
             this.y = y;
             this.radius = radius;
     }
 
-
     public void drawMe(Canvas canvas) {
         //paints targets as random
+
         Paint daColor = new Paint();
+        daColor.setColor(color);
 
-
+        //if the target is hit the targets changes colors
         if(hit)
         {
             daColor.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
                     myRand.nextInt(256)));
         }
-        else
-        {
-            daColor.setColor(Color.BLUE);
-        }
-
         canvas.drawCircle(x, y, radius,daColor );  //main circle
-
-
-
     }
 
     /** for ease of calculation, just draw a box around the circle and see if the point is in that */
@@ -76,11 +71,10 @@ public class target extends customElement
         canvas.drawCircle(x, y, radius, outlinePaint);  //keep outline so it stands out
     }
 
-
+    //if the target is hit
     public void setHit()
     {
-
-            hit = true;
+        hit = true;
 
     }
 

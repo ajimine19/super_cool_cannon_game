@@ -5,37 +5,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.up.cs371.ajimine19.cannonanimationhw3.CannonMainActivity">
+    tools:context="edu.up.cs371.ajimine19.cannonanimationhw3.CannonMainActivity"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.12">
 
-        <TextView
-            android:text="Angle"
-            android:layout_width="163dp"
-            android:id="@+id/angleText"
-            android:gravity="center_vertical|center_horizontal"
-            android:textColor="?attr/colorAccent"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="30sp" />
+            android:layout_weight="1">
 
-        <SeekBar
-            android:layout_height="match_parent"
-            android:id="@+id/angleSeek"
-            android:layout_weight="1"
-            android:max="90"
-            android:layout_width="400dp"
-            android:progress="45" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <SeekBar
+                    android:layout_height="match_parent"
+                    android:id="@+id/angleSeek"
+                    android:layout_weight="1"
+                    android:max="90"
+                    android:layout_width="wrap_content"
+                    android:progress="45" />
+
+                <TextView
+                    android:text="ANGLE"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/angleText"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="?attr/colorAccent"
+                    android:layout_height="match_parent"
+                    android:textSize="30sp"
+                    android:layout_weight=".3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/velocitySeekBar"
+                    android:layout_weight="1"
+                    android:max="200"
+                    android:progress="100" />
+
+                <TextView
+                    android:text="SPEED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/velocityText"
+                    android:layout_weight=".3"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="30sp"
+                    android:gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
+        </LinearLayout>
 
         <Button
             android:text="FIRE!!"
-            android:layout_width="322dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/fireButton"
             android:textSize="36sp"
-            android:textColor="@android:color/holo_red_light" />
+            android:textColor="@android:color/holo_red_light"
+            android:layout_weight=".5" />
+
+        <Button
+            android:text="RESET"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/resetButton"
+            android:layout_weight=".2" />
 
     </LinearLayout>
 

@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -14,7 +16,10 @@ import android.widget.TextView;
  * CannonMainActivity
  *
  * This is the activity for the cannon animation. It creates a AnimationCanvas
- * containing a particular Animator object
+ * containing a particular Animator object. Overall I completed the requirments for HW3 part A,
+ * and I have code that i am working on for part B as well.
+ *
+ * I do have TODO's for part B
  *
  * @author Andrew Nuxoll
  * @author devinajimine
@@ -24,16 +29,17 @@ import android.widget.TextView;
 
 public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener
 {
-    /**
-     * creates an AnimationCanvas containing a TestAnimator.
-     */
-
     //instance variables
-    private SeekBar angleSeeker;
-    private Button fireButton;
-    private cannonAnimator doAnimat;
     private TextView degrees;
+    private TextView velocity;
 
+    private SeekBar angleSeeker;
+    private SeekBar velocitySeek;
+
+    private Button fireButton;
+    private Button resetButton;
+
+    private cannonAnimator doAnimat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,16 +54,25 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         mainLayout.addView(myCanvas);
 
         degrees = (TextView)findViewById(R.id.angleText);
+        velocity = (TextView)findViewById(R.id.velocityText);
 
         //fire button
         fireButton = (Button) findViewById(R.id.fireButton);
         fireButton.setOnClickListener(this);
 
+        //TODO implement a reset button
+        //reset Button
+        //resetButton = (Button) findViewById(R.id.resetButton);
+        //fireButton.setOnClickListener(new ResetButtonListener());
+
         //set seek angle seekbar
         angleSeeker = (SeekBar) findViewById(R.id.angleSeek);
         angleSeeker.setOnSeekBarChangeListener(this);
-    }
 
+        //velocty seek bar
+        //velocitySeek = (SeekBar) findViewById(R.id.velocitySeekBar);
+        //velocitySeek.setOnSeekBarChangeListener(this);
+    }
 
     /**
      * This is the default behavior (empty menu)
@@ -72,8 +87,12 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
     public void onProgressChanged(SeekBar seekBar, int i, boolean b)
     {
         doAnimat.setAngle(seekBar.getProgress());
-
         degrees.setText(""+seekBar.getProgress());
+
+
+        //TODO implement velocity seek bar
+        //doAnimat.setVelocity(seekBar.getProgress());
+        //velocity.setText(""+seekBar.getProgress());
     }
     @Override
     public void onStartTrackingTouch(SeekBar seekBar)
@@ -88,6 +107,18 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
     public void onClick(View view) {
 
         doAnimat.fire();
-
     }
+
+    //TODO implement a reset button
+    /*
+    private class ResetButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view)
+        {
+
+            doAnimat.reset();
+        }
+    }
+    */
+
 }
