@@ -68,8 +68,7 @@ public class cannonAnimator implements Animator
     }
 
     private void intialPaints() {
-        redPaint.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
-                myRand.nextInt(256)));
+
         yellow.setColor(Color.YELLOW);
         red.setColor(Color.RED);
         magenta.setColor(Color.MAGENTA);
@@ -187,23 +186,16 @@ public class cannonAnimator implements Animator
         if(fire)
         {
             //calculates for gravity and sets the positions
-            //Log.i("posX", posX+"");
-            //Log.i("posY", posY+"");
             posX = (int)(velocity*Math.cos(angle)*count)+125;
             posY = (int)(-((velocity*Math.sin(angle)*count) - (.5*GRAVITY*count*count)))+1125;
 
             // Draw the ball in the correct position.
-
-
-
+            redPaint.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
+                    myRand.nextInt(256)));
             g.drawCircle(posX , posY, 60, redPaint);
-            //Log.i("angle value:", angle + "");
 
             //iterate count to add multiple ticks
             count++;
-
-            //Checks to see if the balls hits the the target
-            //if the target is hit the setHit method will return a true so the target change color
         }
 
         //rotates the canvas
