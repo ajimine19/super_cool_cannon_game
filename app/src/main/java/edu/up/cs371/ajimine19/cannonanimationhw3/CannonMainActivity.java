@@ -34,7 +34,6 @@ import android.widget.TextView;
  * -Allow the user to change the gravity and/or the wind speed. [7]
  *
  * TODO firgure out sound and reset button functionality
- * -Include sound at appropriate times (when the canon is fired a fired sound appears)[8]
  * -Reset button capabilities
  *
  *
@@ -81,7 +80,7 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         //TODO implement a reset button
         //reset Button
         resetButton = (Button) findViewById(R.id.resetButton);
-        fireButton.setOnClickListener(this);
+        resetButton.setOnClickListener(this);
 
         //set seek angle seekbar
         angleSeeker = (SeekBar) findViewById(R.id.angleSeek);

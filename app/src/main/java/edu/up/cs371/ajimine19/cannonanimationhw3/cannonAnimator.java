@@ -42,6 +42,8 @@ public class cannonAnimator implements Animator
     private ArrayList<target> removedTargets;
     private target targetTest, targetTest2,targetTest3, targetTest4, targetTest5, targetTest6,
             targetTest7, targetTest8 ;
+    private target extargetTest, extargetTest2,extargetTest3, extargetTest4, extargetTest5, extargetTest6,
+            extargetTest7, extargetTest8 ;
     Random myRand = new Random();
     Random randomExp = new Random();
     Random randomExp2 = new Random();
@@ -82,15 +84,24 @@ public class cannonAnimator implements Animator
         //TODO implement a reset button
         if(reset)
         {
-            targetTest = new target("", Color.MAGENTA, 1700, -1800, 50);
-            targetTest2 = new target("", Color.MAGENTA, 800, -1000, 75);
-            targetTest3 = new target("", Color.MAGENTA, 1200, 300, 100);
-            targetTest4 = new target("", Color.MAGENTA, 1700, -900, 90);
-            targetTest5 = new target("", Color.MAGENTA, 100, -500, 50);
-            targetTest6 = new target("", Color.MAGENTA, 1400, 0, 75);
-            targetTest7 = new target("", Color.MAGENTA, 700, -10, 100);
-            targetTest8 = new target("", Color.MAGENTA, 1300, -1600, 150);
+            extargetTest = new target("", Color.MAGENTA, 1700, -1800, 50);
+            extargetTest2 = new target("", Color.MAGENTA, 800, -1000, 75);
+            extargetTest3 = new target("", Color.MAGENTA, 1200, 300, 100);
+            extargetTest4 = new target("", Color.MAGENTA, 1700, -900, 90);
+            extargetTest5 = new target("", Color.MAGENTA, 100, -500, 50);
+            extargetTest6 = new target("", Color.MAGENTA, 1400, 0, 75);
+            extargetTest7 = new target("", Color.MAGENTA, 700, -10, 100);
+            extargetTest8 = new target("", Color.MAGENTA, 1300, -1600, 150);
 
+
+            tars.add(extargetTest);
+            tars.add(extargetTest2);
+            tars.add(extargetTest3);
+            tars.add(extargetTest4);
+            tars.add(extargetTest5);
+            tars.add(extargetTest6);
+            tars.add(extargetTest7);
+            tars.add(extargetTest8);
         }
         else
         {
@@ -113,6 +124,7 @@ public class cannonAnimator implements Animator
         tars.add(targetTest6);
         tars.add(targetTest7);
         tars.add(targetTest8);
+
     }
 
     /**
@@ -199,10 +211,6 @@ public class cannonAnimator implements Animator
             //if the target is hit the setHit method will return a true so the target change color
         }
 
-        ///////////////////////CANON/////////////////////
-        //TODO working on custom Canon
-        //cannon canonTest = new cannon(100,100);
-
         //TODO Paint
         Paint colorB = new Paint();
         colorB.setColor(Color.BLACK);
@@ -217,7 +225,6 @@ public class cannonAnimator implements Animator
         Paint baseColor = new Paint();
         baseColor.setColor(Color.RED);
 
-
         //draws base
         Path triangle = new Path();
         triangle.moveTo(0,1000);
@@ -228,12 +235,10 @@ public class cannonAnimator implements Animator
         //checks to see if the ball goes out of bounds
         if(posX>=g.getWidth()-100 || posY >= g.getHeight() )
         {
-
             fire = false;
         }
 
-
-
+        //if the canon hits itself with a cannon ball an expxlosing will occer
         if(destroyed.containsPoint(posX,posY))
         {
             for (int i = 1; i<30; i++)
@@ -244,7 +249,9 @@ public class cannonAnimator implements Animator
             }
         }
 
+        //goes through all targets
         //checks to see if the target contains the point
+        //if it does the target will explode and disapear
         for (target z : tars) {
             if (z.containsPoint(posX, posY))
             {
@@ -257,10 +264,9 @@ public class cannonAnimator implements Animator
                     g.drawCircle( posX+randomExp3.nextInt(400)-100, posY+randomExp3.nextInt(200), randomExp3.nextInt(30), magenta);
                 }
                 fire = false;
-
             }
         }
-
+        //removes the targets
         tars.removeAll(removedTargets);
     }
 
@@ -294,6 +300,7 @@ public class cannonAnimator implements Animator
     }
 
     //when the button is pressed count ticks changes
+    //its is important to set count back to 0 so it can be implemented again
     public void fire()
     {
         fire = true;
@@ -306,7 +313,6 @@ public class cannonAnimator implements Animator
     {
         reset = true;
     }
-
 
 
     //method to change into radians
