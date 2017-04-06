@@ -70,8 +70,8 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         angleSeeker.setOnSeekBarChangeListener(this);
 
         //velocty seek bar
-        //velocitySeek = (SeekBar) findViewById(R.id.gravitySeekBar);
-        //velocitySeek.setOnSeekBarChangeListener(this);
+        gravitySeek = (SeekBar) findViewById(R.id.gravitySeekBar);
+        gravitySeek.setOnSeekBarChangeListener(this);
     }
 
     /**
@@ -84,20 +84,22 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int i, boolean b)
-    {
-        doAnimat.setAngle(seekBar.getProgress());
-        degrees.setText(""+seekBar.getProgress());
-
-
-        //TODO implement velocity seek bar
-        //doAnimat.setGravity(seekBar.getProgress());
-        //velocity.setText(""+seekBar.getProgress());
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        if (seekBar.getId() == R.id.angleSeek) {
+            doAnimat.setAngle(seekBar.getProgress());
+            degrees.setText("" + seekBar.getProgress());
+        } else if (seekBar.getId() == R.id.gravitySeekBar)
+        {
+            doAnimat.setGravity(seekBar.getProgress());
+            gravity.setText("" + seekBar.getProgress());
+        }
     }
     @Override
     public void onStartTrackingTouch(SeekBar seekBar)
     {
+
     }
+
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
     }
@@ -106,7 +108,11 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
     @Override
     public void onClick(View view) {
 
-        doAnimat.fire();
+        if(view.getId()==R.id.fireButton)
+        {
+            doAnimat.fire();
+        }
+
     }
 
     //TODO implement a reset button

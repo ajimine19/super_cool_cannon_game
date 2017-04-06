@@ -56,8 +56,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/gravitySeekBar"
                     android:layout_weight="1.44"
-                    android:max="200"
-                    android:progress="100" />
+                    android:max="20"
+                    android:progress="10" />
 
                 <TextView
                     android:text="GRAVITY"

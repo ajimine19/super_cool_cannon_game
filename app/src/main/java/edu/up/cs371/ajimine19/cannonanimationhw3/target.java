@@ -31,6 +31,7 @@ public class target extends customElement
             this.x = x;
             this.y = y;
             this.radius = radius;
+
     }
 
     public void drawMe(Canvas canvas) {
@@ -75,6 +76,17 @@ public class target extends customElement
     public void setHit()
     {
         hit = true;
+
+    }
+
+
+    public void moveBitch(Canvas g)
+    {
+        this.y = this.y + 10;
+        if((this.y+radius)==g.getHeight() || (this.y+radius) ==0)
+        {
+            this.y = - (this.y);
+        }
 
     }
 

@@ -39,7 +39,10 @@ public class cannonAnimator implements Animator
     private double angle = 45*3.14/180;
     private double GRAVITY = 9.8;
     private ArrayList<target> tars;
-    private target targetTest, targetTest2,targetTest3, targetTest4 ;
+    private ArrayList<target> removedTargets;
+    private target targetTest, targetTest2,targetTest3, targetTest4, targetTest5, targetTest6,
+            targetTest7, targetTest8 ;
+    Random myRand = new Random();
     Random randomExp = new Random();
     Random randomExp2 = new Random();
     Random randomExp3 = new Random();
@@ -50,6 +53,7 @@ public class cannonAnimator implements Animator
     public cannonAnimator()
     {
         tars = new ArrayList<>();
+        removedTargets = new ArrayList<>();
         intialTars();
     }
 
@@ -66,16 +70,25 @@ public class cannonAnimator implements Animator
         }
         else
         {
-            targetTest = new target("", Color.BLUE, 1700, 500, 50);
-            targetTest2 = new target("", Color.BLUE, 800, 1000, 75);
+            targetTest = new target("", Color.BLUE, 1700, -1800, 50);
+            targetTest2 = new target("", Color.BLUE, 800, -1000, 75);
             targetTest3 = new target("", Color.BLUE, 1200, 300, 100);
-            targetTest4 = new target("", Color.BLUE, 1700, 900, 100);
+            targetTest4 = new target("", Color.BLUE, 1700, -900, 90);
+            targetTest5 = new target("", Color.BLUE, 100, -500, 50);
+            targetTest6 = new target("", Color.BLUE, 1400, 0, 75);
+            targetTest7 = new target("", Color.BLUE, 700, -10, 100);
+            targetTest8 = new target("", Color.BLUE, 1300, -1600, 150);
         }
+
         //stores it inside the arraylist
         tars.add(targetTest);
         tars.add(targetTest2);
         tars.add(targetTest3);
         tars.add(targetTest4);
+        tars.add(targetTest5);
+        tars.add(targetTest6);
+        tars.add(targetTest7);
+        tars.add(targetTest8);
     }
 
     /**
@@ -120,6 +133,9 @@ public class cannonAnimator implements Animator
         for(target t : tars)
         {
             t.drawMe(g);
+
+            t.moveBitch(g);
+
         }
 
         //set Colors
@@ -145,7 +161,8 @@ public class cannonAnimator implements Animator
             // Draw the ball in the correct position.
             //TODO Paint
             Paint redPaint = new Paint();
-            redPaint.setColor(Color.RED);
+            redPaint.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
+                    myRand.nextInt(256)));
 
 
             g.drawCircle(posX , posY, 60, redPaint);
@@ -196,6 +213,7 @@ public class cannonAnimator implements Animator
         }
         */
 
+
         if(destroyed.containsPoint(posX,posY))
         {
             for (int i = 1; i<30; i++)
@@ -211,9 +229,12 @@ public class cannonAnimator implements Animator
             if (z.containsPoint(posX, posY))
             {
                 z.setHit();
+                removedTargets.add(z);
                 fire = false;
             }
         }
+
+        tars.removeAll(removedTargets);
     }
 
     /**
