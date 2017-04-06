@@ -39,14 +39,21 @@ public class target extends customElement
 
         Paint daColor = new Paint();
         daColor.setColor(color);
+        Paint red = new Paint();
+        red.setColor(Color.RED);
 
         //if the target is hit the targets changes colors
         if(hit)
         {
             daColor.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
                     myRand.nextInt(256)));
+
         }
         canvas.drawCircle(x, y, radius,daColor );  //main circle
+        drawHighlight(canvas);
+
+        canvas.drawCircle(x,y,radius/2,red);
+        drawHighlight(canvas);
     }
 
     /** for ease of calculation, just draw a box around the circle and see if the point is in that */

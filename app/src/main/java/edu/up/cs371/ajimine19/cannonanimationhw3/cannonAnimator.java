@@ -46,6 +46,10 @@ public class cannonAnimator implements Animator
     Random randomExp = new Random();
     Random randomExp2 = new Random();
     Random randomExp3 = new Random();
+    private Paint highlightPaint = new Paint();
+    private Paint greyhighlight = new Paint();
+
+
 
 
 
@@ -55,6 +59,21 @@ public class cannonAnimator implements Animator
         tars = new ArrayList<>();
         removedTargets = new ArrayList<>();
         intialTars();
+        intialPaints();
+    }
+
+    private void intialPaints() {
+
+        highlightPaint.setColor(Color.YELLOW);
+        highlightPaint.setStyle(Paint.Style.STROKE);
+        highlightPaint.setStrokeWidth(5); // nice wide, visible line
+        highlightPaint.setShadowLayer(5, 1, 1, Color.BLACK);
+
+        greyhighlight.setColor(Color.LTGRAY);
+        greyhighlight.setStyle(Paint.Style.STROKE);
+        greyhighlight.setStrokeWidth(5); // nice wide, visible line
+        greyhighlight.setShadowLayer(5, 1, 1, Color.BLACK);
+
     }
 
     //intialize the targets
@@ -63,21 +82,26 @@ public class cannonAnimator implements Animator
         //TODO implement a reset button
         if(reset)
         {
-            targetTest = new target("", Color.RED, 1500, 500, 100);
-            targetTest2 = new target("", Color.RED, 800, 900, 75);
-            targetTest3 = new target("", Color.RED, 1500, 500, 100);
-            targetTest4 = new target("", Color.RED, 800, 900, 75);
+            targetTest = new target("", Color.MAGENTA, 1700, -1800, 50);
+            targetTest2 = new target("", Color.MAGENTA, 800, -1000, 75);
+            targetTest3 = new target("", Color.MAGENTA, 1200, 300, 100);
+            targetTest4 = new target("", Color.MAGENTA, 1700, -900, 90);
+            targetTest5 = new target("", Color.MAGENTA, 100, -500, 50);
+            targetTest6 = new target("", Color.MAGENTA, 1400, 0, 75);
+            targetTest7 = new target("", Color.MAGENTA, 700, -10, 100);
+            targetTest8 = new target("", Color.MAGENTA, 1300, -1600, 150);
+
         }
         else
         {
-            targetTest = new target("", Color.BLUE, 1700, -1800, 50);
-            targetTest2 = new target("", Color.BLUE, 800, -1000, 75);
-            targetTest3 = new target("", Color.BLUE, 1200, 300, 100);
-            targetTest4 = new target("", Color.BLUE, 1700, -900, 90);
-            targetTest5 = new target("", Color.BLUE, 100, -500, 50);
-            targetTest6 = new target("", Color.BLUE, 1400, 0, 75);
-            targetTest7 = new target("", Color.BLUE, 700, -10, 100);
-            targetTest8 = new target("", Color.BLUE, 1300, -1600, 150);
+            targetTest = new target("", Color.WHITE, 1700, -1800, 100);
+            targetTest2 = new target("", Color.WHITE, 800, -1000, 75);
+            targetTest3 = new target("", Color.WHITE, 1200, 300, 100);
+            targetTest4 = new target("", Color.WHITE, 1700, -900, 90);
+            targetTest5 = new target("", Color.WHITE, 300, -500, 50);
+            targetTest6 = new target("", Color.WHITE, 1400, 0, 75);
+            targetTest7 = new target("", Color.WHITE, 700, -10, 100);
+            targetTest8 = new target("", Color.WHITE, 1300, -1600, 150);
         }
 
         //stores it inside the arraylist
@@ -108,7 +132,7 @@ public class cannonAnimator implements Animator
      */
     public int backgroundColor() {
         // create/return the background color
-        return Color.rgb(180, 200, 255);
+        return Color.rgb(168,255,232);
     }
 
     /**
@@ -141,13 +165,13 @@ public class cannonAnimator implements Animator
         //set Colors
         Paint yellow = new Paint();
         Paint red = new Paint();
-        Paint orange = new Paint();
+        Paint magenta = new Paint();
         yellow.setColor(Color.YELLOW);
         red.setColor(Color.RED);
-        orange.setColor(Color.rgb(255,69,0));
+        magenta.setColor(Color.MAGENTA);
 
         //checks to see if the canon is hit
-        target destroyed = new target("",Color.YELLOW,125,1250,70);
+        target destroyed = new target("",Color.YELLOW,115,1400,70);
         destroyed.drawMe(g);
 
         if(fire)
@@ -193,6 +217,7 @@ public class cannonAnimator implements Animator
         Paint baseColor = new Paint();
         baseColor.setColor(Color.RED);
 
+
         //draws base
         Path triangle = new Path();
         triangle.moveTo(0,1000);
@@ -201,17 +226,12 @@ public class cannonAnimator implements Animator
         g.drawPath(triangle,baseColor);
 
         //checks to see if the ball goes out of bounds
-        if(posX>g.getWidth() || posY > g.getHeight() )
+        if(posX>=g.getWidth()-100 || posY >= g.getHeight() )
         {
+
             fire = false;
         }
 
-        /*
-        if(posX <= posX && posY >= (posY+50) )
-        {
-            hitMeSelf = true;
-        }
-        */
 
 
         if(destroyed.containsPoint(posX,posY))
@@ -220,7 +240,7 @@ public class cannonAnimator implements Animator
             {
                 g.drawCircle( randomExp.nextInt(500), 900+randomExp.nextInt(200), randomExp.nextInt(50), yellow);
                 g.drawCircle( randomExp2.nextInt(500), 1000+randomExp2.nextInt(200), randomExp2.nextInt(80), red);
-                g.drawCircle( randomExp3.nextInt(400), 1100+randomExp3.nextInt(200), randomExp3.nextInt(30), orange);
+                g.drawCircle( randomExp3.nextInt(400), 1100+randomExp3.nextInt(200), randomExp3.nextInt(30), magenta);
             }
         }
 
@@ -230,7 +250,14 @@ public class cannonAnimator implements Animator
             {
                 z.setHit();
                 removedTargets.add(z);
+                for (int i = 1; i<30; i++)
+                {
+                    g.drawCircle( posX+randomExp.nextInt(500)-100, posY-randomExp.nextInt(200), randomExp.nextInt(50), yellow);
+                    g.drawCircle( posX+randomExp2.nextInt(500)-100, posY+randomExp2.nextInt(200), randomExp2.nextInt(80), red);
+                    g.drawCircle( posX+randomExp3.nextInt(400)-100, posY+randomExp3.nextInt(200), randomExp3.nextInt(30), magenta);
+                }
                 fire = false;
+
             }
         }
 
@@ -270,16 +297,16 @@ public class cannonAnimator implements Animator
     public void fire()
     {
         fire = true;
-        count =0;
+        count = 0;
     }
 
     //TODO implement a reset button
-    /*
+
     public void reset()
     {
         reset = true;
     }
-    */
+
 
 
     //method to change into radians

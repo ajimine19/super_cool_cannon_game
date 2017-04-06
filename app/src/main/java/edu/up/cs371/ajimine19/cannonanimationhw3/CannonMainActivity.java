@@ -80,8 +80,8 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
 
         //TODO implement a reset button
         //reset Button
-        //resetButton = (Button) findViewById(R.id.resetButton);
-        //fireButton.setOnClickListener(new ResetButtonListener());
+        resetButton = (Button) findViewById(R.id.resetButton);
+        fireButton.setOnClickListener(this);
 
         //set seek angle seekbar
         angleSeeker = (SeekBar) findViewById(R.id.angleSeek);
@@ -106,7 +106,8 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         if (seekBar.getId() == R.id.angleSeek) {
             doAnimat.setAngle(seekBar.getProgress());
             degrees.setText("" + seekBar.getProgress());
-        } else if (seekBar.getId() == R.id.gravitySeekBar)
+        }
+        else if (seekBar.getId() == R.id.gravitySeekBar)
         {
             doAnimat.setGravity(seekBar.getProgress());
             gravity.setText("" + seekBar.getProgress());
@@ -131,20 +132,15 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
             doAnimat.fire();
 
         }
-
-
-    }
-
-    //TODO implement a reset button
-    /*
-    private class ResetButtonListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view)
+        else if(view.getId()==R.id.resetButton)
         {
-
             doAnimat.reset();
         }
+
+
     }
-    */
+
+
+
 
 }
