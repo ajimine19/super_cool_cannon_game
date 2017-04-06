@@ -1,5 +1,7 @@
 package edu.up.cs371.ajimine19.cannonanimationhw3;
 
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,11 +17,26 @@ import android.widget.TextView;
 /**
  * CannonMainActivity
  *
+ * Part A Notes: April 4th
  * This is the activity for the cannon animation. It creates a AnimationCanvas
  * containing a particular Animator object. Overall I completed the requirments for HW3 part A,
  * and I have code that i am working on for part B as well.
  *
- * I do have TODO's for part B
+ * Part B Notes: April 6th
+ * My cannon game should be fully functional with the following capabilities:
+ * -The cannon ball should stop when it hits the ground (where it resets so you can fire again)[3]
+ * -Animate the cannon being destroyed if it shoots itself (firing straight up
+ into the air will cause the cannon to explode with a cloud of red/yellow/orange)[7]
+ * -Have the targets create an animated explosion (or similar effect) when the
+ cannonball hits them (If the target is hit the target will explode and disappear) [5]
+ * -Modify the targets so that they move around on the screen until they are hit by
+ a cannonball.[8]
+ * -Allow the user to change the gravity and/or the wind speed. [7]
+ *
+ * TODO firgure out sound and reset button functionality
+ * -Include sound at appropriate times (when the canon is fired a fired sound appears)[8]
+ * -Reset button capabilities
+ *
  *
  * @author Andrew Nuxoll
  * @author devinajimine
@@ -40,6 +57,7 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
     private Button resetButton;
 
     private cannonAnimator doAnimat;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,7 +129,9 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         if(view.getId()==R.id.fireButton)
         {
             doAnimat.fire();
+
         }
+
 
     }
 

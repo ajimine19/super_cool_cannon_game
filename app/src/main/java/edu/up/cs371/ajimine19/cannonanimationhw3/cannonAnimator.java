@@ -147,7 +147,7 @@ public class cannonAnimator implements Animator
         orange.setColor(Color.rgb(255,69,0));
 
         //checks to see if the canon is hit
-        target destroyed = new target("",Color.YELLOW,125,1300,70);
+        target destroyed = new target("",Color.YELLOW,125,1250,70);
         destroyed.drawMe(g);
 
         if(fire)
