@@ -28,10 +28,8 @@ public class cannonAnimator implements Animator
 {
     // instance variables
     private int count = 0; // counts the number of logical clock ticks
-    private int move = 0;
     private boolean goBackwards = false; // whether clock is ticking backwards
     private boolean fire = false;
-    private boolean hitMeSelf = false;
     private boolean reset = false;
     private int posX = 0;
     private int posY = 0;
@@ -50,7 +48,12 @@ public class cannonAnimator implements Animator
     Random randomExp3 = new Random();
     private Paint highlightPaint = new Paint();
     private Paint greyhighlight = new Paint();
-
+    private Paint yellow = new Paint();
+    private Paint red = new Paint();
+    private Paint magenta = new Paint();
+    private Paint colorB = new Paint();
+    private Paint baseColor = new Paint();
+    private Paint redPaint = new Paint();
 
 
 
@@ -65,6 +68,13 @@ public class cannonAnimator implements Animator
     }
 
     private void intialPaints() {
+        redPaint.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
+                myRand.nextInt(256)));
+        yellow.setColor(Color.YELLOW);
+        red.setColor(Color.RED);
+        magenta.setColor(Color.MAGENTA);
+        colorB.setColor(Color.BLACK);
+        baseColor.setColor(Color.RED);
 
         highlightPaint.setColor(Color.YELLOW);
         highlightPaint.setStyle(Paint.Style.STROKE);
@@ -75,7 +85,6 @@ public class cannonAnimator implements Animator
         greyhighlight.setStyle(Paint.Style.STROKE);
         greyhighlight.setStrokeWidth(5); // nice wide, visible line
         greyhighlight.setShadowLayer(5, 1, 1, Color.BLACK);
-
     }
 
     //intialize the targets
@@ -84,6 +93,7 @@ public class cannonAnimator implements Animator
         //TODO implement a reset button
         if(reset)
         {
+            //Working on this
             extargetTest = new target("", Color.MAGENTA, 1700, -1800, 50);
             extargetTest2 = new target("", Color.MAGENTA, 800, -1000, 75);
             extargetTest3 = new target("", Color.MAGENTA, 1200, 300, 100);
@@ -124,7 +134,6 @@ public class cannonAnimator implements Animator
         tars.add(targetTest6);
         tars.add(targetTest7);
         tars.add(targetTest8);
-
     }
 
     /**
@@ -165,22 +174,11 @@ public class cannonAnimator implements Animator
     public void tick(Canvas g) {
 
         //draws all the targets out
-        move++;
         for(target t : tars)
         {
             t.drawMe(g);
-
-            t.moveBitch(g);
-
+            t.moveIT(g); //calls the method in target to move the targets up and down
         }
-
-        //set Colors
-        Paint yellow = new Paint();
-        Paint red = new Paint();
-        Paint magenta = new Paint();
-        yellow.setColor(Color.YELLOW);
-        red.setColor(Color.RED);
-        magenta.setColor(Color.MAGENTA);
 
         //checks to see if the canon is hit
         target destroyed = new target("",Color.YELLOW,115,1400,70);
@@ -195,10 +193,7 @@ public class cannonAnimator implements Animator
             posY = (int)(-((velocity*Math.sin(angle)*count) - (.5*GRAVITY*count*count)))+1125;
 
             // Draw the ball in the correct position.
-            //TODO Paint
-            Paint redPaint = new Paint();
-            redPaint.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
-                    myRand.nextInt(256)));
+
 
 
             g.drawCircle(posX , posY, 60, redPaint);
@@ -211,19 +206,11 @@ public class cannonAnimator implements Animator
             //if the target is hit the setHit method will return a true so the target change color
         }
 
-        //TODO Paint
-        Paint colorB = new Paint();
-        colorB.setColor(Color.BLACK);
-
         //rotates the canvas
         g.save();
         g.rotate((float)(-(angle*180/3.14)+90),100,1150);
         g.drawRect(0,1000,200,1250, colorB);
         g.restore();
-
-        //TODO Paint
-        Paint baseColor = new Paint();
-        baseColor.setColor(Color.RED);
 
         //draws base
         Path triangle = new Path();
@@ -298,7 +285,6 @@ public class cannonAnimator implements Animator
             goBackwards = !goBackwards;
         }
     }
-
     //when the button is pressed count ticks changes
     //its is important to set count back to 0 so it can be implemented again
     public void fire()
@@ -313,7 +299,6 @@ public class cannonAnimator implements Animator
     {
         reset = true;
     }
-
 
     //method to change into radians
     public void setAngle(int angle) {

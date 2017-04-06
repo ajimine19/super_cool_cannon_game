@@ -31,7 +31,6 @@ public class target extends customElement
             this.x = x;
             this.y = y;
             this.radius = radius;
-
     }
 
     public void drawMe(Canvas canvas) {
@@ -47,7 +46,6 @@ public class target extends customElement
         {
             daColor.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
                     myRand.nextInt(256)));
-
         }
         canvas.drawCircle(x, y, radius,daColor );  //main circle
         drawHighlight(canvas);
@@ -66,11 +64,9 @@ public class target extends customElement
         return (dist < this.radius + TAP_MARGIN);
     }//containsPoint
 
-
     public int getSize() {
         return (int)(Math.PI * this.radius * this.radius);
     }
-
 
     //if the target is hit highlight target
     @Override
@@ -83,18 +79,14 @@ public class target extends customElement
     public void setHit()
     {
         hit = true;
-
     }
 
-
-    public void moveBitch(Canvas g)
+    public void moveIT(Canvas g)
     {
         this.y = this.y + 10;
         if((this.y+radius)==g.getHeight() || (this.y+radius) ==0)
         {
             this.y = - (this.y);
         }
-
     }
-
 }

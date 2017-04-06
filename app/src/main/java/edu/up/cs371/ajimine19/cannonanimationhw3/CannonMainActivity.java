@@ -33,9 +33,8 @@ import android.widget.TextView;
  a cannonball.[8]
  * -Allow the user to change the gravity and/or the wind speed. [7]
  *
- * TODO firgure out sound and reset button functionality
+ * TODO figure out reset button functionality
  * -Reset button capabilities
- *
  *
  * @author Andrew Nuxoll
  * @author devinajimine
@@ -122,7 +121,7 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
     public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
-    //When the fire button is clicked
+    //When the button is clicked
     @Override
     public void onClick(View view) {
 
@@ -135,11 +134,5 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         {
             doAnimat.reset();
         }
-
-
     }
-
-
-
-
 }
