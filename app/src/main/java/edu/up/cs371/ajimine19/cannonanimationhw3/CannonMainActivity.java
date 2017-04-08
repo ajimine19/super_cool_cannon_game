@@ -1,6 +1,9 @@
 package edu.up.cs371.ajimine19.cannonanimationhw3;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,18 +58,19 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
     private Button resetButton;
 
     private cannonAnimator doAnimat;
+    private MediaPlayer cannonSound;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         // Creates an animation canvas and place it in the main layout
         doAnimat = new cannonAnimator();
         AnimationCanvas myCanvas = new AnimationCanvas(this, doAnimat);
         LinearLayout mainLayout = (LinearLayout) this
-                .findViewById(R.id.topLevelLayout);
+                .findViewById(R.id.animation_screen);
         mainLayout.addView(myCanvas);
 
         degrees = (TextView)findViewById(R.id.angleText);
@@ -88,6 +92,12 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
         //velocty seek bar
         gravitySeek = (SeekBar) findViewById(R.id.gravitySeekBar);
         gravitySeek.setOnSeekBarChangeListener(this);
+
+        //audio button listener and instantiation
+        cannonSound = MediaPlayer.create(this,R.raw.cannon);
+
+
+
     }
 
     /**
@@ -125,14 +135,25 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
     @Override
     public void onClick(View view) {
 
-        if(view.getId()==R.id.fireButton)
+        switch(view.getId())
         {
-            doAnimat.fire();
+            case R.id.fireButton:
+                cannonSound.start();
+                doAnimat.fire();
+                break;
+            /*
+            *http://stackoverflow.com/questions/13813626/android-reset-button-permanently-disabled-another-button
+            * How to create a reset button to end the activity and start again
+            *
+             */
+            case R.id.resetButton:
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
 
-        }
-        else if(view.getId()==R.id.resetButton)
-        {
-            doAnimat.reset();
-        }
     }
 }

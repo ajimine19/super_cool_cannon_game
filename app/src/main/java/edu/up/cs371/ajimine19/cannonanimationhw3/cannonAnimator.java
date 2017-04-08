@@ -30,7 +30,6 @@ public class cannonAnimator implements Animator
     private int count = 0; // counts the number of logical clock ticks
     private boolean goBackwards = false; // whether clock is ticking backwards
     private boolean fire = false;
-    private boolean reset = false;
     private int posX = 0;
     private int posY = 0;
     private int velocity = 150;
@@ -54,7 +53,7 @@ public class cannonAnimator implements Animator
     private Paint colorB = new Paint();
     private Paint baseColor = new Paint();
     private Paint redPaint = new Paint();
-
+    private Paint youWin = new Paint();
 
 
 
@@ -75,10 +74,11 @@ public class cannonAnimator implements Animator
         colorB.setColor(Color.BLACK);
         baseColor.setColor(Color.RED);
 
-        highlightPaint.setColor(Color.YELLOW);
-        highlightPaint.setStyle(Paint.Style.STROKE);
-        highlightPaint.setStrokeWidth(5); // nice wide, visible line
-        highlightPaint.setShadowLayer(5, 1, 1, Color.BLACK);
+
+        youWin.setColor(Color.rgb(212,175,55));
+        youWin.setStyle(Paint.Style.STROKE);
+        youWin.setStrokeWidth(6); // nice wide, visible line
+        youWin.setShadowLayer(5, 1, 1, Color.BLACK);
 
         greyhighlight.setColor(Color.LTGRAY);
         greyhighlight.setStyle(Paint.Style.STROKE);
@@ -89,40 +89,14 @@ public class cannonAnimator implements Animator
     //intialize the targets
     public void intialTars()
     {
-        //TODO implement a reset button
-        if(reset)
-        {
-            //Working on this
-            extargetTest = new target("", Color.MAGENTA, 1700, -1800, 50);
-            extargetTest2 = new target("", Color.MAGENTA, 800, -1000, 75);
-            extargetTest3 = new target("", Color.MAGENTA, 1200, 300, 100);
-            extargetTest4 = new target("", Color.MAGENTA, 1700, -900, 90);
-            extargetTest5 = new target("", Color.MAGENTA, 100, -500, 50);
-            extargetTest6 = new target("", Color.MAGENTA, 1400, 0, 75);
-            extargetTest7 = new target("", Color.MAGENTA, 700, -10, 100);
-            extargetTest8 = new target("", Color.MAGENTA, 1300, -1600, 150);
-
-
-            tars.add(extargetTest);
-            tars.add(extargetTest2);
-            tars.add(extargetTest3);
-            tars.add(extargetTest4);
-            tars.add(extargetTest5);
-            tars.add(extargetTest6);
-            tars.add(extargetTest7);
-            tars.add(extargetTest8);
-        }
-        else
-        {
-            targetTest = new target("", Color.WHITE, 1700, -1800, 100);
-            targetTest2 = new target("", Color.WHITE, 800, -1000, 75);
-            targetTest3 = new target("", Color.WHITE, 1200, 300, 100);
-            targetTest4 = new target("", Color.WHITE, 1700, -900, 90);
-            targetTest5 = new target("", Color.WHITE, 300, -500, 50);
-            targetTest6 = new target("", Color.WHITE, 1400, 0, 75);
-            targetTest7 = new target("", Color.WHITE, 700, -10, 100);
-            targetTest8 = new target("", Color.WHITE, 1300, -1600, 150);
-        }
+        targetTest = new target("", Color.WHITE, 1700, -1800, 100);
+        targetTest2 = new target("", Color.WHITE, 800, -1000, 75);
+        targetTest3 = new target("", Color.WHITE, 1200, 300, 100);
+        targetTest4 = new target("", Color.WHITE, 1700, -900, 90);
+        targetTest5 = new target("", Color.WHITE, 300, -500, 50);
+        targetTest6 = new target("", Color.WHITE, 1400, 0, 75);
+        targetTest7 = new target("", Color.WHITE, 700, -10, 100);
+        targetTest8 = new target("", Color.WHITE, 1300, -1600, 150);
 
         //stores it inside the arraylist
         tars.add(targetTest);
@@ -194,6 +168,7 @@ public class cannonAnimator implements Animator
                     myRand.nextInt(256)));
             g.drawCircle(posX , posY, 60, redPaint);
 
+
             //iterate count to add multiple ticks
             count++;
         }
@@ -243,10 +218,19 @@ public class cannonAnimator implements Animator
                     g.drawCircle( posX+randomExp3.nextInt(400)-100, posY+randomExp3.nextInt(200), randomExp3.nextInt(30), magenta);
                 }
                 fire = false;
+
             }
         }
         //removes the targets
         tars.removeAll(removedTargets);
+
+
+        //log.i("","");
+
+        if(tars == null) {
+            youWin.setTextSize(200f);
+            g.drawText("YOU WIN!!!!", (g.getWidth() / 2) - 500, g.getHeight() / 2, youWin);
+        }
     }
 
     /**
@@ -283,14 +267,9 @@ public class cannonAnimator implements Animator
     {
         fire = true;
         count = 0;
+
     }
 
-    //TODO implement a reset button
-
-    public void reset()
-    {
-        reset = true;
-    }
 
     //method to change into radians
     public void setAngle(int angle) {
@@ -301,5 +280,8 @@ public class cannonAnimator implements Animator
     {
         this.GRAVITY = gravity;
     }
+
+
+
 }
 
