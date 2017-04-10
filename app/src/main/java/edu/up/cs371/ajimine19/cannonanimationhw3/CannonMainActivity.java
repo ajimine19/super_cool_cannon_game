@@ -35,9 +35,12 @@ import android.widget.TextView;
  * -Modify the targets so that they move around on the screen until they are hit by
  a cannonball.[8]
  * -Allow the user to change the gravity and/or the wind speed. [7]
+ *-Reset button capabilities[?]
+ *
  *
  * TODO figure out reset button functionality
- * -Reset button capabilities
+ * -Implementng sound and also moe than one ball at a time
+ *
  *
  * @author Andrew Nuxoll
  * @author devinajimine
@@ -151,6 +154,7 @@ public class CannonMainActivity extends Activity implements SeekBar.OnSeekBarCha
                 finish();
                 startActivity(intent);
                 break;
+
             default:
                 break;
         }

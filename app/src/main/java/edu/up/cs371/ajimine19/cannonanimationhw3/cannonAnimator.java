@@ -39,8 +39,7 @@ public class cannonAnimator implements Animator
     private ArrayList<target> removedTargets;
     private target targetTest, targetTest2,targetTest3, targetTest4, targetTest5, targetTest6,
             targetTest7, targetTest8 ;
-    private target extargetTest, extargetTest2,extargetTest3, extargetTest4, extargetTest5, extargetTest6,
-            extargetTest7, extargetTest8 ;
+    private ArrayList<cannonBalls> balls;
     Random myRand = new Random();
     Random randomExp = new Random();
     Random randomExp2 = new Random();
@@ -61,10 +60,14 @@ public class cannonAnimator implements Animator
     public cannonAnimator()
     {
         tars = new ArrayList<>();
+        balls = new ArrayList<>();
         removedTargets = new ArrayList<>();
         intialTars();
         intialPaints();
+        initialBalls();
     }
+
+
 
     private void intialPaints() {
 
@@ -86,17 +89,23 @@ public class cannonAnimator implements Animator
         greyhighlight.setShadowLayer(5, 1, 1, Color.BLACK);
     }
 
+    private void initialBalls() {
+
+        //Was about to create custom cannon balls
+        cannonBalls cannonBalls = new cannonBalls(posX , posY, 40, redPaint);
+    }
+
     //intialize the targets
     public void intialTars()
     {
-        targetTest = new target("", Color.WHITE, 1700, -1800, 100);
-        targetTest2 = new target("", Color.WHITE, 800, -1000, 75);
-        targetTest3 = new target("", Color.WHITE, 1200, 300, 100);
-        targetTest4 = new target("", Color.WHITE, 1700, -900, 90);
-        targetTest5 = new target("", Color.WHITE, 300, -500, 50);
-        targetTest6 = new target("", Color.WHITE, 1400, 0, 75);
-        targetTest7 = new target("", Color.WHITE, 700, -10, 100);
-        targetTest8 = new target("", Color.WHITE, 1300, -1600, 150);
+        targetTest = new target("", Color.WHITE, 600, 100, 50);
+        targetTest2 = new target("", Color.WHITE, 700, 200, 50);
+        targetTest3 = new target("", Color.WHITE, 800, 300, 50);
+        targetTest4 = new target("", Color.WHITE, 900, 400, 50);
+        targetTest5 = new target("", Color.WHITE, 1000, 500, 50);
+        targetTest6 = new target("", Color.WHITE, 1100, 600, 50);
+        targetTest7 = new target("", Color.WHITE, 1200, 700, 50);
+        targetTest8 = new target("", Color.WHITE, 1300, 800, 50);
 
         //stores it inside the arraylist
         tars.add(targetTest);
@@ -146,6 +155,8 @@ public class cannonAnimator implements Animator
      */
     public void tick(Canvas g) {
 
+        Log.i("screen w", targetTest+"");
+        Log.i("screen h",g.getHeight()+"");
         //draws all the targets out
         for(target t : tars)
         {
@@ -166,7 +177,9 @@ public class cannonAnimator implements Animator
             // Draw the ball in the correct position.
             redPaint.setColor(Color.rgb(myRand.nextInt(256), myRand.nextInt(256),
                     myRand.nextInt(256)));
-            g.drawCircle(posX , posY, 60, redPaint);
+
+            g.drawCircle(posX , posY, 40, redPaint);
+
 
 
             //iterate count to add multiple ticks
@@ -217,7 +230,10 @@ public class cannonAnimator implements Animator
                     g.drawCircle( posX+randomExp2.nextInt(500)-100, posY+randomExp2.nextInt(200), randomExp2.nextInt(80), red);
                     g.drawCircle( posX+randomExp3.nextInt(400)-100, posY+randomExp3.nextInt(200), randomExp3.nextInt(30), magenta);
                 }
+                posX = 0;
+                posY = 0;
                 fire = false;
+
 
             }
         }
@@ -225,9 +241,9 @@ public class cannonAnimator implements Animator
         tars.removeAll(removedTargets);
 
 
-        //log.i("","");
+        Log.i("Is the tars empty",""+ tars.size());
 
-        if(tars == null) {
+        if(tars.isEmpty()) {
             youWin.setTextSize(200f);
             g.drawText("YOU WIN!!!!", (g.getWidth() / 2) - 500, g.getHeight() / 2, youWin);
         }
